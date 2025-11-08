@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookstore Cart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f6f6f6;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #004d99;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        .cart-container {
+            width: 80%;
+            margin: 30px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+            vertical-align: middle;
+        }
+        th {
+            background-color: #004d99;
+            color: white;
+        }
+        img.book-cover {
+            width: 60px;
+            height: 90px;
+            border-radius: 5px;
+            object-fit: cover;
+        }
+        .remove-btn {
+            background-color: #e60000;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .remove-btn:hover {
+            background-color: #cc0000;
+        }
+        .total {
+            text-align: right;
+            font-weight: bold;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        .checkout-btn {
+            display: inline-block;
+            background-color: #004d99;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 6px;
+            margin-top: 20px;
+            float: right;
+        }
+        .checkout-btn:hover {
+            background-color: #0066cc;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>📚 My Bookstore Cart</h1>
+</header>
+
+<div class="cart-container">
+    <h2>Your Shopping Cart</h2>
+    <table id="cart-table">
+        <thead>
+            <tr>
+                <th>S.No</th>
+                <th>Cover</th>
+                <th>Book Title</th>
+                <th>Author</th>
+                <th>Price (₹)</th>
+                <th>Quantity</th>
+                <th>Total (₹)</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="serial"></td>
+                <td><img src="https://m.media-amazon.com/images/I/81t2CVWEsUL._AC_UF1000,1000_QL80_.jpg" alt="The Hobbit" class="book-cover"></td>
+                <td>Harry Potter and The goblet of fire</td> 
+                <td>J.K. Rowling</td>
+                <td class="price">350</td>
+                <td>1</td>
+                <td class="item-total">350</td>
+                <td><button class="remove-btn">Remove</button></td>
+            </tr>
+            <tr>
+                <td class="serial"></td>
+                <td><img src="https://m.media-amazon.com/images/I/81wgcld4wxL._AC_UF1000,1000_QL80_.jpg" alt="Atomic Habits" class="book-cover"></td>
+                <td>Atomic Habits</td> 
+                <td>James Clear</td>
+                <td class="price">499</td>
+                <td>1</td>
+                <td class="item-total">998</td>
+                <td><button class="remove-btn">Remove</button></td>
+            </tr>
+            <tr>
+                <td class="serial"></td>
+                <td><img src="https://m.media-amazon.com/images/I/71tbalAHYCL._AC_UF1000,1000_QL80_.jpg" alt="Ikigai" class="book-cover"></td>
+                <td>Ikigai</td> 
+                <td>Héctor García</td>
+                <td class="price">299</td>
+                <td>1</td>
+                <td class="item-total">299</td>
+                <td><button class="remove-btn">Remove</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="total" id="total-amount">
+        Total Amount: ₹1,647
+    </div>
+
+    <a href="#" class="checkout-btn">Proceed to Checkout</a>
+</div>
+
+<script>
+    // Function to update serial numbers
+    function updateSerialNumbers() {
+        const rows = document.querySelectorAll('#cart-table tbody tr');
+        rows.forEach((row, index) => {
+            row.querySelector('.serial').textContent = index + 1;
+        });
+    }
+
+    // Function to update total amount
+    function updateTotal() {
+        const itemTotals = document.querySelectorAll('.item-total');
+        let total = 0;
+        itemTotals.forEach(item => total += parseFloat(item.textContent));
+        document.getElementById('total-amount').textContent = `Total Amount: ₹${total}`;
+    }
+
+    // Remove button functionality
+    document.querySelectorAll('.remove-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const row = this.closest('tr');
+            row.remove();
+            updateSerialNumbers();
+            updateTotal();
+        });
+    });
+
+    // Initialize serial numbers and total on page load
+    updateSerialNumbers();
+    updateTotal();
+</script>
+
+</body>
+</html>
